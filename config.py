@@ -11,11 +11,11 @@ class Settings(BaseSettings):
     DEBUG: bool = True
 
     # PostgreSQL database settings
-    db_host: str = 'localhost'
-    db_port: int = 5432
-    db_name: str = "Admin_db"
-    db_user: str = 'postgres'
-    db_password: str = None  # Password can be migrationsoptional
+    db_host: str
+    db_port: int
+    db_name: str
+    db_user: str
+    db_password: str
 
     # Other settings (optional)
     debug: bool = False
