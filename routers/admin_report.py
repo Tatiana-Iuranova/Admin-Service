@@ -18,9 +18,9 @@ async def get_all_reports(db: AsyncSession):
 @report_router.get(
     "/reports",
     response_model=List[ReportOut],
-    summary="Получение комментариев для поста",
-    description="Позволяет пользователю получить комментарий для конкретного поста",
-    tags=["Жалобы"]
+    summary="Получение жалоб",
+    description="Позволяет администратору получить список жалоб",
+
 )
 async def list_reports(
     db: AsyncSession = Depends(get_db)
@@ -32,7 +32,7 @@ async def list_reports(
     "/posts/{post_id}", status_code=204,
     summary="Удаление поста",
     description="Позволяет администратору удалить пост по его идентификатору.",
-    tags=["Удаление"]
+
 )
 async def delete_post(post_id: int, user: dict = Depends(get_current_admin_user)):
     status_code, message = await async_delete_post(post_id)
@@ -44,7 +44,7 @@ async def delete_post(post_id: int, user: dict = Depends(get_current_admin_user)
     "/comments/{comment_id}", status_code=204,
     summary="Удаление комментария",
     description="Позволяет администратору удалить комментарий по его идентификатору.",
-    tags=["Удаление"]
+
 )
 async def delete_comment(comment_id: int, user: dict = Depends(get_current_admin_user)):
     status_code, message = await async_delete_comment(comment_id)
