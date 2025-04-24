@@ -1,6 +1,14 @@
-1. pip install uvicorn
-2. pip install "fastapi[all]"
-3. pip install fastapi[all] sqlalchemy databases asyncpg
-4. pip install python-jose
-3. pip freeze > requirements.txt
-2. uvicorn main_report:app --reload
+# Chatty
+ Социальная сеть «Chatty» — учебная платформа, предназначенная для обмена контентом между  пользователями, общения и получения персонализированных рекомендаций. Платформа позволяет  пользователям создавать собственные посты, делиться изображениями, ставить лайки и  комментировать публикации других участников.
+
+
+1. Create virtual environment "python -m venv .venv"
+2. load virtual environment ".venv\Scripts\activate"
+3. load necessary libraries "pip install -r requirements.txt"
+4. Apply 'alembic revision --autogenerate -m "*****.py"'
+5.   Apply migration "alembic upgrade head" 
+6.  Start the server "uvicorn main:app --reload"
+
+7. Configure Docker-Compose to run subscription_service "docker-compose up -d --build"
+
+8. 
