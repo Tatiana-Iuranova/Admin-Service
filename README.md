@@ -12,4 +12,3 @@
 7. Configure Docker-Compose to run subscription_service "docker-compose up -d --build"
 
 8. 
-
