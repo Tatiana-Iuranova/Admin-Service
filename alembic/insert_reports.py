@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from models_report import Base, Report  # Импортируй свою модель Report
+from models import Base, Report  # Импортируй свою модель Report
 from datetime import datetime
 import psycopg2
 

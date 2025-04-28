@@ -1,9 +1,7 @@
-version: "3.9"
-
 services:
   admin-service:
     build:
-      context: ./admin_service
+      context: .
       dockerfile: ./Dockerfile
     container_name: admin_service
     ports:
@@ -16,10 +14,9 @@ services:
       DB_USER: postgres
       DB_PASSWORD: postgres
       RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
-    volumes:
-      - ./admin_service:/app
+
     depends_on:
-      - posts_db
+#      - posts_db
       - rabbitmq
 
   admin_db:
@@ -31,11 +28,11 @@ services:
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: admin_db
     ports:
-      - "5433:5432"
+      - "5432:5432"
     volumes:
       - postgres_admin_data:/var/lib/postgresql/data
-    networks:
-      - chatty_network
+#    networks:
+#      - chatty_network
 
   rabbitmq:
     image: rabbitmq:3-management
@@ -46,45 +43,45 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: guest
       RABBITMQ_DEFAULT_PASS: guest
-    networks:
-      - chatty_network
+#    networks:
+#      - chatty_network
 
-  posts_service:
-    image: posts-service:latest  # Если Post Service собирается отдельно
-    container_name: posts-service
-    environment:
-      DB_HOST: Posts_service_db
-      DB_PORT: 5432
-      DB_NAME: posts_db
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
-    depends_on:
-      - posts_db
-      - rabbitmq
-    ports:
-      - "8000:8000"
-    networks:
-      - chatty_network
-
-  posts_db:
-    image: postgres:15.3
-    container_name: posts-db
-    restart: always
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_DB: posts_db
-    ports:
-      - "5434:5432"
-    volumes:
-      - postgres_posts_data:/var/lib/postgresql/data
-    networks:
-      - chatty_network
-
-networks:
-  chatty_network:
-    driver: bridge
+#  posts_service:
+#    image: posts-service:latest  # Если Post Service собирается отдельно
+#    container_name: posts-service
+#    environment:
+#      DB_HOST: Posts_service_db
+#      DB_PORT: 5432
+#      DB_NAME: posts_db
+#      DB_USER: postgres
+#      DB_PASSWORD: postgres
+#      RABBITMQ_URL: amqp://guest:guest@rabbitmq:5672/
+#    depends_on:
+#      - posts_db
+#      - rabbitmq
+#    ports:
+#      - "8000:8000"
+#    networks:
+#      - chatty_network
+#
+#  posts_db:
+#    image: postgres:15.3
+#    container_name: posts-db
+#    restart: always
+#    environment:
+#      POSTGRES_USER: postgres
+#      POSTGRES_PASSWORD: postgres
+#      POSTGRES_DB: posts_db
+#    ports:
+#      - "5434:5432"
+#    volumes:
+#      - postgres_posts_data:/var/lib/postgresql/data
+#    networks:
+#      - chatty_network
+#
+#networks:
+#  chatty_network:
+#    driver: bridge
 
 volumes:
   postgres_admin_data:
