@@ -1,14 +1,15 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
-from sqlalchemy.orm import sessionmaker, declarative_base
+from config import settings
 
-DATABASE_URL = "postgresql+psycopg2://postgres:postgres@localhost:5432/admin_db"
+# DATABASE_URL = "postgresql+psycopg2://postgres:postgres@localhost:5432/books_db"
+# engine = create_engine(DATABASE_URL)
 
-engine = create_async_engine(DATABASE_URL, echo=True)
+engine = create_async_engine(settings.async_database_url)
+AsyncSessionLocal = sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 
-AsyncSessionLocal = sessionmaker(bind=engine, class_=AsyncSession, expire_on_commit=False)
-
-Base = declarative_base()
-
+# Создаём зависимость для работы с БД в FastAPI
 async def get_db():
-    async with AsyncSessionLocal() as session:
-        yield session
+    async with AsyncSessionLocal() as db:
+        yield db
