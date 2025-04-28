@@ -5,7 +5,7 @@ from schemas_report import ReportOut
 from utils.post_service import async_delete_post, async_delete_comment
 from typing import List
 from sqlalchemy.future import select
-from models_report import Report
+from models import Report
 from routers.auth_report import get_current_admin_user
 
 
