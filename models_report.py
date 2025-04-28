@@ -3,6 +3,8 @@ from typing import Optional
 from sqlalchemy import  Text, DateTime
 from sqlalchemy import CheckConstraint
 from datetime import datetime
+from sqlalchemy import Column, Integer, String, Boolean
+
 
 Base = declarative_base()
 
@@ -22,3 +24,16 @@ class Report(Base):
             name='only_one_of_post_or_comment'
         ),
     )
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    # id — это идентификатор пользователя. Типизация через Mapped.
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
+
+    # роль пользователя (по умолчанию 'user')
+    role: Mapped[str] = mapped_column(String, default="user")
+
+    # блокировка пользователя (по умолчанию False)
+    is_blocked: Mapped[bool] = mapped_column(Boolean, default=False)

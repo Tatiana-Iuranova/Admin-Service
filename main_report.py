@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from routers.admin_report import report_router
+from routers import admin_users
 
 
 app = FastAPI(
@@ -11,6 +12,11 @@ app = FastAPI(
 )
 
 app.include_router(report_router, prefix="/report", tags=["Report"])
+app.include_router(admin_users.router)
 @app.get("/")
 async def read_root():
     return {"message": "Welcome to the Admin Service API"}
+
+
+
+
